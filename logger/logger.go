@@ -50,6 +50,9 @@ func doInit(args []string) (err error) {
 	LogLady.Formatter = &logrus.JSONFormatter{}
 
 	location, err := LogFileLocation()
+	if err != nil {
+		return
+	}
 
 	file, err := os.OpenFile(location, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0666)
 	if err != nil {

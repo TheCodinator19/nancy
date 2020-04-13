@@ -74,7 +74,10 @@ func TestInit(t *testing.T) {
 	teardownTestCase := setupTestCase(t)
 	defer teardownTestCase(t)
 
-	doInit([]string{"yadda", "-test.v"})
+	err := doInit([]string{"yadda", "-test.v"})
+	if err != nil {
+		t.Error(err)
+	}
 	assert.Equal(t, TestLogfilename, DefaultLogFile)
 }
 
@@ -82,7 +85,10 @@ func TestInitIQ(t *testing.T) {
 	teardownTestCase := setupTestCase(t)
 	defer teardownTestCase(t)
 
-	doInit([]string{"yadda", "-iq", "-test.v"})
+	err := doInit([]string{"yadda", "-iq", "-test.v"})
+	if err != nil {
+		t.Error(err)
+	}
 	assert.Equal(t, DefaultLogFilename, DefaultLogFile)
 }
 
@@ -90,6 +96,9 @@ func TestInitDefault(t *testing.T) {
 	teardownTestCase := setupTestCase(t)
 	defer teardownTestCase(t)
 
-	doInit([]string{"yadda", "-yadda"})
+	err := doInit([]string{"yadda", "-yadda"})
+	if err != nil {
+		t.Error(err)
+	}
 	assert.Equal(t, DefaultLogFilename, DefaultLogFile)
 }
