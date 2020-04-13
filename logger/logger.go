@@ -46,7 +46,7 @@ func doInit(args []string) {
 	LogLady.Level = logrus.InfoLevel
 	LogLady.Formatter = &logrus.JSONFormatter{}
 
-	location, err := GetLogFileLocation()
+	location, err := LogFileLocation()
 
 	file, err := os.OpenFile(location, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0666)
 	if err != nil {
@@ -80,8 +80,8 @@ func useTestLogFile(args []string) bool {
 	return false
 }
 
-// GetLogFileLocation will return the location on disk of the log file
-func GetLogFileLocation() (result string, err error) {
+// LogFileLocation will return the location on disk of the log file
+func LogFileLocation() (result string, err error) {
 	result, _ = os.UserHomeDir()
 	err = os.MkdirAll(path.Join(result, types.OssIndexDirName), os.ModePerm)
 	if err != nil {

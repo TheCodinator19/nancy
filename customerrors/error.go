@@ -36,7 +36,7 @@ func (sw SwError) Exit() {
 
 func Check(err error, message string) {
 	if err != nil {
-		location, _ := GetLogFileLocation()
+		location, _ := LogFileLocation()
 		myErr := SwError{Message: message, Err: err}
 		LogLady.WithField("error", err).Error(message)
 		fmt.Println(myErr.Error())
