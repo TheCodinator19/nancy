@@ -35,10 +35,13 @@ var DefaultLogFile = DefaultLogFilename
 var LogLady = logrus.New()
 
 func init() {
-	doInit(os.Args)
+	err := doInit(os.Args)
+	if err != nil {
+		panic(err)
+	}
 }
 
-func doInit(args []string) {
+func doInit(args []string) (err error) {
 	if useTestLogFile(args) {
 		DefaultLogFile = TestLogfilename
 	}
@@ -50,9 +53,11 @@ func doInit(args []string) {
 
 	file, err := os.OpenFile(location, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0666)
 	if err != nil {
-		LogLady.WithField("err", err).Error("Unable to open log file")
+		return
 	}
 	LogLady.Out = file
+
+	return
 }
 
 func stringPrefixInSlice(a string, list []string) bool {
